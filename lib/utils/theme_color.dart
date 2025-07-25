@@ -13,9 +13,7 @@ class ThemeColor {
     return ThemeData(
       colorScheme: colorScheme,
       primaryColor: isDarkMode ? Colors.black : Colors.white,
-      scaffoldBackgroundColor: isDarkMode
-          ? Colors.black
-          : const Color(0xFFF1F5FB),
+      scaffoldBackgroundColor: isDarkMode ? Colors.black : Colors.white,
       hintColor: isDarkMode ? const Color(0xFF280C0B) : const Color(0xff133762),
       highlightColor: isDarkMode
           ? const Color(0xFF372901)
