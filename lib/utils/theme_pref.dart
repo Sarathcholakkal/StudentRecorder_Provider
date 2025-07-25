@@ -1,15 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemePreference {
-  static const theme_status = "THEMESTATUS";
+  static const themeStatus = "themestatus";
 
   setDarkTheme(bool value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool(theme_status, value);
+    preferences.setBool(themeStatus, value);
   }
 
   Future<bool> getTheme() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getBool(theme_status) ?? false;
+    return preferences.getBool(themeStatus) ?? false;
   }
 }

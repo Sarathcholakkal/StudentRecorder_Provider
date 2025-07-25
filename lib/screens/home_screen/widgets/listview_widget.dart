@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studentrecord/screens/profile_screen/student_profile.dart';
 
 class ListViewWidget extends StatelessWidget {
   const ListViewWidget({super.key});
@@ -10,7 +11,11 @@ class ListViewWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         // final student = newList[index];
         return GestureDetector(
-          onDoubleTap: () {},
+          onDoubleTap: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => StudentProfile()));
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -19,8 +24,7 @@ class ListViewWidget extends StatelessWidget {
                 backgroundImage:
                     // student.image != null
                     //     ? FileImage(File(student.image)):
-                    const AssetImage("assets/profielimage_palceholder.jpg")
-                        as ImageProvider,
+                    const AssetImage("assets/male.jpg") as ImageProvider,
               ),
               title: Text('Shanidha ps'),
               subtitle: Text('Computer Sceince'),

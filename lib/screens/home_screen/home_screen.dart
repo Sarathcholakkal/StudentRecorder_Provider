@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studentrecord/controller/screen_view_provider.dart';
 import 'package:studentrecord/controller/theme_provider.dart';
+import 'package:studentrecord/screens/form_screen/form_screen.dart';
 import 'package:studentrecord/screens/home_screen/widgets/gridview_widget.dart';
 import 'package:studentrecord/screens/home_screen/widgets/listview_widget.dart';
 import 'package:studentrecord/utils/const.dart';
@@ -35,7 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => FormScreen()));
+          },
           child: Icon(Icons.add),
         ),
         appBar: PreferredSize(
@@ -43,7 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               AppBar(
-                title: Text("Student Records"),
+                title: Text(
+                  "Student Records",
+                  style: TextStyle(letterSpacing: 1),
+                ),
                 centerTitle: true,
                 actions: [
                   Consumer<ScreenViewProvider>(
@@ -54,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         icon: Icon(
                           screenViewProvider.gridView
-                              ? Icons.grid_on
-                              : Icons.list,
+                              ? Icons.list
+                              : Icons.grid_on,
                         ),
                       );
                     },

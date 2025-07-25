@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studentrecord/screens/profile_screen/student_profile.dart';
 
 class GridViewWidget extends StatelessWidget {
   @override
@@ -8,7 +9,11 @@ class GridViewWidget extends StatelessWidget {
       itemBuilder: (ctx, index) {
         // final student = filterdList[index];
         return GestureDetector(
-          onDoubleTap: () {},
+          onDoubleTap: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => StudentProfile()));
+          },
           child: Card(
             child: Column(
               children: [
@@ -21,9 +26,7 @@ class GridViewWidget extends StatelessWidget {
                             //     ? FileImage(
                             //         File(student.image))
                             //     :
-                            const AssetImage(
-                                  "assets/profielimage_palceholder.jpg",
-                                )
+                            const AssetImage("assets/female.jpg")
                                 as ImageProvider,
                         fit: BoxFit.cover,
                       ),

@@ -35,3 +35,21 @@ const searchInputDecoration = InputDecoration(
   prefixIcon: Icon(Icons.search),
   hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
 );
+
+// const formInputFieldDecoration = InputDecoration(
+//   contentPadding: const EdgeInsets.only(left: 20),
+//   labelText: 'Name',
+//   hintText: 'Enter Your Name',
+
+//   hintStyle: TextStyle(color: Colors.grey[400]),
+//   fillColor: Colors.grey.withAlpha(60),
+//   filled: true,
+//   focusedBorder: const OutlineInputBorder(
+//     borderRadius: BorderRadius.circular(10),
+//     borderSide: BorderSide(color: Colors.grey.shade400),
+//   ),
+//   enabledBorder: const OutlineInputBorder(
+//     borderRadius: BorderRadius.circular(10),
+//     borderSide: BorderSide(color: Colors.grey.shade400),
+//   ),
+// );

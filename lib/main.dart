@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studentrecord/controller/theme_provider.dart';
 import 'package:studentrecord/screens/flash_screen.dart';
+import 'package:studentrecord/screens/form_screen/form_screen.dart';
 import 'package:studentrecord/screens/home_screen/home_screen.dart';
 import 'package:studentrecord/utils/theme_color.dart';
 

@@ -45,6 +45,21 @@ class ThemeColor {
         elevation: 0,
         color: isDarkMode ? Colors.black : Colors.white,
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.grey.withAlpha(60),
+        contentPadding: const EdgeInsets.only(left: 20),
+        labelStyle: const TextStyle(color: Colors.black),
+        hintStyle: TextStyle(color: Colors.grey[400]),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade400),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade400),
+        ),
+      ),
     );
   }
 }
