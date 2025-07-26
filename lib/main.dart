@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studentrecord/controller/student_provider.dart';
 import 'package:studentrecord/controller/theme_provider.dart';
+import 'package:studentrecord/db/db_services.dart';
 import 'package:studentrecord/screens/flash_screen.dart';
-import 'package:studentrecord/screens/form_screen/form_screen.dart';
-import 'package:studentrecord/screens/home_screen/home_screen.dart';
 import 'package:studentrecord/utils/theme_color.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await initilaizeDataBase();
+  await DBService.database;
   runApp(const MyApp());
 }
 
@@ -34,16 +34,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) {
-        return themeChangeProvider;
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => themeChangeProvider,
+        ),
+        ChangeNotifierProvider<StudentProvider>(
+          create: (context) => StudentProvider()..fetchStudents(),
+        ),
+      ],
       child: Consumer<ThemeProvider>(
         builder: (BuildContext context, value, child) {
           return MaterialApp(
             title: 'Dark Theme',
             debugShowCheckedModeBanner: false,
-            theme: ThemeColor.themeData(themeChangeProvider.darkTheme, context),
+            theme: ThemeColor.themeData(value.darkTheme, context),
             home: Flash_Screen(),
           );
         },

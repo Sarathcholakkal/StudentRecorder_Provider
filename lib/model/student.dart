@@ -25,7 +25,7 @@ class Student {
       emailID: map['emailID'] as String,
       subject: map['subject'] as String,
       cgpa: map['cgpa'] as String,
-      phoneNumber: map['phoneNumber'] as String,
+      phoneNumber: map['phonenumber'] as String, // fixed key
       image: map['image'] as String,
     );
   }

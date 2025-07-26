@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:studentrecord/controller/student_provider.dart';
 import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/form_screen/textfield_title_widget.dart';
 import 'package:studentrecord/screens/form_screen/wide_textbutton.dart';
@@ -72,10 +74,12 @@ class _FormScreenState extends State<FormScreen> {
         cgpa: cgpa,
         phoneNumber: number,
       );
-      // await addStudent(student);
-      print('student object');
+      final studentProvider = Provider.of<StudentProvider>(ctx, listen: false);
+      await studentProvider.addStudent(student);
 
-      Navigator.of(context).push(
+      print('student added');
+
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (ctx) {
             return const StudentProfile();

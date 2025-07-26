@@ -16,6 +16,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<ThemeProvider>(context);
     void toggleSwitch(bool value) {
@@ -34,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (_) {
         return ScreenViewProvider();
       },
+
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
