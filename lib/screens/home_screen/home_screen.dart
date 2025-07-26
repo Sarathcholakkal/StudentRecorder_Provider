@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studentrecord/controller/screen_view_provider.dart';
+import 'package:studentrecord/controller/student_provider.dart';
 import 'package:studentrecord/controller/theme_provider.dart';
 import 'package:studentrecord/screens/form_screen/form_screen.dart';
 import 'package:studentrecord/screens/home_screen/widgets/gridview_widget.dart';
@@ -15,15 +16,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<ThemeProvider>(context);
+    final provider = Provider.of<StudentProvider>(context);
     void toggleSwitch(bool value) {
       if (themeChange.darkTheme == false) {
         setState(() {
@@ -83,10 +86,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  style: const TextStyle(fontSize: 16, color: Colors.black38),
-                  controller: TextEditingController(),
+                  style: const TextStyle(fontSize: 16),
+                  controller: _searchController,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: searchInputDecoration,
+                  onChanged: (value) {
+                    provider.searchStudents(value);
+                  },
                 ),
               ),
             ],
@@ -95,9 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SafeArea(
           child: Consumer<ScreenViewProvider>(
             builder: (context, screenViewProvider, _) {
+              final studentProvider = Provider.of<StudentProvider>(context);
               return screenViewProvider.gridView
-                  ? GridViewWidget()
-                  : ListViewWidget();
+                  ? GridViewWidget(students: studentProvider.students)
+                  : ListViewWidget(students: studentProvider.students);
             },
           ),
         ),

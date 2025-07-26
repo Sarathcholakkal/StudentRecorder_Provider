@@ -1,18 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/profile_screen/student_profile.dart';
 
 class GridViewWidget extends StatelessWidget {
+  final List<Student> students;
+
+  const GridViewWidget({super.key, required this.students});
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: 50,
+      itemCount: students.length,
       itemBuilder: (ctx, index) {
-        // final student = filterdList[index];
+        final student = students[index];
         return GestureDetector(
           onDoubleTap: () {
-            // Navigator.of(
-            //   context,
-            // ).push(MaterialPageRoute(builder: (context) => StudentProfile()));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => StudentProfile(student: student),
+              ),
+            );
           },
           child: Card(
             child: Column(
@@ -21,20 +29,17 @@ class GridViewWidget extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            // student.image != null
-                            //     ? FileImage(
-                            //         File(student.image))
-                            //     :
-                            const AssetImage("assets/female.jpg")
-                                as ImageProvider,
+                        image: student.image != null
+                            ? FileImage(File(student.image))
+                            : const AssetImage("assets/female.jpg")
+                                  as ImageProvider,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
-                Text("Shanidha Ps", style: const TextStyle(fontSize: 20)),
-                const Text('Computer Science', style: TextStyle()),
+                Text(student.name, style: const TextStyle(fontSize: 20)),
+                Text(student.subject, style: TextStyle()),
                 SizedBox(height: 5),
               ],
             ),
