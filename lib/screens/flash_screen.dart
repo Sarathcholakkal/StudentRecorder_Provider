@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:studentrecord/screens/home_screen/home_screen.dart';
 
 class Flash_Screen extends StatefulWidget {
   const Flash_Screen({super.key});
@@ -11,7 +12,7 @@ class Flash_Screen extends StatefulWidget {
 class _Flash_ScreenState extends State<Flash_Screen> {
   @override
   void initState() {
-    // callDelaty();
+    callDelaty();
     // getAllStudent();
     super.initState();
   }
@@ -29,15 +30,14 @@ class _Flash_ScreenState extends State<Flash_Screen> {
     );
   }
 
-  // callDelaty() async {
-  //   await Future.delayed(const Duration(seconds: 3));
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (ctx) {
-  //         return const HomeScreen();
-  //         //  HomeScreen();
-  //       },
-  //     ),
-  //   );
-  // }
+  callDelaty() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) {
+          return const HomeScreen();
+        },
+      ),
+    );
+  }
 }

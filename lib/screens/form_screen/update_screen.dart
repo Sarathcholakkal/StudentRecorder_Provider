@@ -2,22 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/form_screen/textfield_title_widget.dart';
 import 'package:studentrecord/screens/form_screen/wide_textbutton.dart';
-import 'package:studentrecord/screens/profile_screen/student_profile.dart';
 import 'package:studentrecord/utils/email_validator.dart';
-import 'package:studentrecord/utils/phone_number_validator.dart';
 import 'package:studentrecord/utils/text_validator.dart';
 
-class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+class UpdateScreen extends StatefulWidget {
+  const UpdateScreen({super.key});
 
   @override
-  State<FormScreen> createState() => _FormScreenState();
+  State<UpdateScreen> createState() => _UpdateScreenState();
 }
 
-class _FormScreenState extends State<FormScreen> {
+class _UpdateScreenState extends State<UpdateScreen> {
   final _nameContorller = TextEditingController();
   final _emalilController = TextEditingController();
   final _subjectController = TextEditingController();
@@ -27,7 +24,7 @@ class _FormScreenState extends State<FormScreen> {
   File? _image;
   final picker = ImagePicker();
   String? _imagePath;
-  //!  fun helps to fetch device media image
+
   Future getImage() async {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -41,67 +38,6 @@ class _FormScreenState extends State<FormScreen> {
         print('Image Path: ${_image!.path}');
       }
     });
-  }
-  // ! help to clear text field
-
-  void clearField() {
-    _nameContorller.clear();
-    _emalilController.clear();
-    _subjectController.clear();
-    _numberController.clear();
-    _cgpaController.clear();
-    setState(() {
-      _imagePath = null;
-    });
-  }
-  // ! onsubmitted fun for create instace of student using  input field
-
-  Future<void> onSubmit(BuildContext ctx) async {
-    print('one submitte pressed');
-    final name = _nameContorller.text.trim();
-    final emialID = _emalilController.text.trim();
-    final subject = _subjectController.text.trim();
-    final number = _numberController.text.trim();
-    final cgpa = _cgpaController.text.trim();
-    if (_imagePath != null) {
-      final student = Student(
-        image: _imagePath!,
-        name: name,
-        emailID: emialID,
-        subject: subject,
-        cgpa: cgpa,
-        phoneNumber: number,
-      );
-      // await addStudent(student);
-      print('student object');
-
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) {
-            return const StudentProfile();
-          },
-        ),
-      );
-      clearField();
-      // getAllStudent();
-    } else {
-      showDialog(
-        context: ctx,
-        builder: (ctx1) {
-          return AlertDialog(
-            title: const Text('Please insert profile picture'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(ctx1).pop();
-                },
-                child: const Text('close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 
   @override
@@ -207,16 +143,13 @@ class _FormScreenState extends State<FormScreen> {
                           decoration: const InputDecoration().copyWith(
                             hintText: 'Enter Phone Number',
                           ),
-                          validator: PhoneNumberValidator(
+                          validator: TextValidator(
                             fieldName: 'phone number',
                           ).call,
                         ),
                         SizedBox(height: 30),
 
-                        WideTextButtonWidget(
-                          signInKey: _signInKey,
-                          onsubmit: onSubmit, // ✅ correct way to pass
-                        ),
+                        // WideTextButtonWidget(signInKey: _signInKey),
                       ],
                     ),
                   ),

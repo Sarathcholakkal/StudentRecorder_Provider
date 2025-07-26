@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               AppBar(
+                automaticallyImplyLeading: false,
                 title: Text(
                   "Student Records",
                   style: TextStyle(letterSpacing: 1),

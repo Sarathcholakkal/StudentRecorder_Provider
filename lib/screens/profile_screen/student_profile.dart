@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studentrecord/screens/form_screen/update_screen.dart';
 
 class StudentProfile extends StatelessWidget {
   const StudentProfile({super.key});
@@ -93,7 +94,13 @@ class StudentProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => UpdateScreen(),
+                              ),
+                            );
+                          },
                           child: const Text(
                             "Edit",
                             style: TextStyle(fontSize: 20),

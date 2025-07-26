@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Dark Theme',
             debugShowCheckedModeBanner: false,
             theme: ThemeColor.themeData(themeChangeProvider.darkTheme, context),
-            home: HomeScreen(),
+            home: Flash_Screen(),
           );
         },
       ),
