@@ -78,14 +78,15 @@ class _FormScreenState extends State<FormScreen> {
       await studentProvider.addStudent(student);
 
       print('student added');
+      Navigator.of(context).pop();
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (ctx) {
-            return const StudentProfile();
-          },
-        ),
-      );
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(
+      //     builder: (ctx) {
+      //       return const StudentProfile();
+      //     },
+      //   ),
+      // );
       clearField();
       // getAllStudent();
     } else {

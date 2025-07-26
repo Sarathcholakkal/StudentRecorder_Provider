@@ -20,7 +20,9 @@ class ListViewWidget extends StatelessWidget {
             return GestureDetector(
               onDoubleTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => StudentProfile()),
+                  MaterialPageRoute(
+                    builder: (context) => StudentProfile(student: student),
+                  ),
                 );
               },
               child: Padding(

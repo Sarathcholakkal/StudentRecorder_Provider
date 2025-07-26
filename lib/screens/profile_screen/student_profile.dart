@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/form_screen/update_screen.dart';
 
 class StudentProfile extends StatelessWidget {
-  const StudentProfile({super.key});
+  final Student student;
+
+  const StudentProfile({super.key, required this.student});
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +35,20 @@ class StudentProfile extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.blue,
                         radius: 80,
-                        backgroundImage: // student.image != null
-                            //     ? FileImage(File(student.image)):
-                            const AssetImage("assets/profile.jpg")
-                                as ImageProvider,
+                        backgroundImage: student.image != null
+                            ? FileImage(File(student.image))
+                            : const AssetImage("assets/profile.jpg")
+                                  as ImageProvider,
                       ),
                       Text(
-                        'Olivia Bennett',
+                        student.name,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 30,
                         ),
                       ),
                       Text(
-                        'ID :${2023001}',
+                        'ID :  ${student.id}',
                         style: TextStyle(
                           fontWeight: FontWeight.w200,
                           fontSize: 18,
@@ -65,19 +70,16 @@ class StudentProfile extends StatelessWidget {
                         ),
                       ),
 
-                      InforTileWidget(label: 'Full Name', value: 'prabisha'),
-                      InforTileWidget(
-                        label: 'Subject',
-                        value: 'Computer Science',
-                      ),
-                      InforTileWidget(label: 'CGPA', value: '7.6'),
+                      InforTileWidget(label: 'Full Name', value: student.name),
+                      InforTileWidget(label: 'Subject', value: student.subject),
+                      InforTileWidget(label: 'CGPA', value: student.cgpa),
                       InforTileWidget(
                         label: 'Email ID',
-                        value: 'sarathcholakkal@gmail.com',
+                        value: student.emailID,
                       ),
                       InforTileWidget(
                         label: 'Phone Number',
-                        value: '9846705406',
+                        value: student.phoneNumber,
                       ),
                       SizedBox(height: 15),
                       Align(

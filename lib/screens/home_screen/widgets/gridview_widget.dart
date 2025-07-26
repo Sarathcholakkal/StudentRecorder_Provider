@@ -10,9 +10,9 @@ class GridViewWidget extends StatelessWidget {
         // final student = filterdList[index];
         return GestureDetector(
           onDoubleTap: () {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => StudentProfile()));
+            // Navigator.of(
+            //   context,
+            // ).push(MaterialPageRoute(builder: (context) => StudentProfile()));
           },
           child: Card(
             child: Column(
