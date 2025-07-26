@@ -48,33 +48,19 @@ class DBService {
     final List<Map<String, dynamic>> maps = await db.query('studenttable');
     return maps.map((map) => Student.fromMap(map)).toList();
   }
+
+  static Future<void> deleteStudent(int id) async {
+    final db = await database;
+    await db.delete('studenttable', where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<void> updateStudent(Student student) async {
+    final db = await database;
+    await db.update(
+      'studenttable',
+      student.toMap(),
+      where: 'id = ?',
+      whereArgs: [student.id],
+    );
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  // // Delete Student
-  // Future<void> deleteStudent(int id) async {
-  //   final db = await database;
-  //   await db.delete('studenttable', where: 'id = ?', whereArgs: [id]);
-  // }
-
-  // Update Student
-  //   Future<void> updateStudent(StudentModel student) async {
-  //     final db = await database;
-  //     await db.update(
-  //       'studenttable',
-  //       student.toMap(),
-  //       where: 'id = ?',
-  //       whereArgs: [student.id],
-  //     );
-  //   }
-  // }

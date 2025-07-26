@@ -16,27 +16,14 @@ class StudentProvider with ChangeNotifier {
     await DBService.addStudent(student);
     await fetchStudents();
   }
+
+  Future<void> deleteStudent(int id) async {
+    await DBService.deleteStudent(id);
+    await fetchStudents();
+  }
+
+  Future<void> updateStudent(Student updatedStudent) async {
+    await DBService.updateStudent(updatedStudent);
+    await fetchStudents();
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Future<void> deleteStudent(int id) async {
-  //   await DBService.deleteStudent(id);
-  //   await fetchStudents();
-  // }
-
-  // Future<void> updateStudent(Student updatedStudent) async {
-  //   await DBService.updateStudent(updatedStudent);
-  //   await fetchStudents();
-  // }

@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studentrecord/controller/student_provider.dart';
 import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/form_screen/update_screen.dart';
 
@@ -99,7 +101,8 @@ class StudentProfile extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => UpdateScreen(),
+                                builder: (context) =>
+                                    UpdateScreen(student: student),
                               ),
                             );
                           },
@@ -124,7 +127,42 @@ class StudentProfile extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx1) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Are you sure to delete this profile',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(ctx1).pop();
+                                      },
+                                      child: const Text('close'),
+                                    ),
+                                    Spacer(),
+                                    TextButton(
+                                      onPressed: () async {
+                                        final studentProvider =
+                                            Provider.of<StudentProvider>(
+                                              context,
+                                              listen: false,
+                                            );
+                                        await studentProvider.deleteStudent(
+                                          student.id!,
+                                        );
+                                        Navigator.of(ctx1).pop();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('yes'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           child: const Text(
                             "Delete",
                             style: TextStyle(fontSize: 20),

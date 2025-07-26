@@ -2,29 +2,54 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:studentrecord/controller/student_provider.dart';
+import 'package:studentrecord/model/student.dart';
 import 'package:studentrecord/screens/form_screen/textfield_title_widget.dart';
 import 'package:studentrecord/screens/form_screen/wide_textbutton.dart';
 import 'package:studentrecord/utils/email_validator.dart';
 import 'package:studentrecord/utils/text_validator.dart';
 
 class UpdateScreen extends StatefulWidget {
-  const UpdateScreen({super.key});
+  final Student student;
+
+  const UpdateScreen({super.key, required this.student});
 
   @override
   State<UpdateScreen> createState() => _UpdateScreenState();
 }
 
 class _UpdateScreenState extends State<UpdateScreen> {
-  final _nameContorller = TextEditingController();
-  final _emalilController = TextEditingController();
-  final _subjectController = TextEditingController();
-  final _numberController = TextEditingController();
-  final _cgpaController = TextEditingController();
+  //! varible decleration
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _subjectControler;
+  late TextEditingController _cgpaController;
+  late TextEditingController _numberController;
+
+  late String _imagePath;
+  late int id;
   final GlobalKey<FormState> _signInKey = GlobalKey();
   File? _image;
   final picker = ImagePicker();
-  String? _imagePath;
+  // String? _imagePath;
 
+  //! initlize late variable here
+
+  @override
+  void initState() {
+    _nameController = TextEditingController(text: widget.student.name);
+    _emailController = TextEditingController(text: widget.student.emailID);
+    _subjectControler = TextEditingController(text: widget.student.subject);
+    _cgpaController = TextEditingController(text: widget.student.cgpa);
+    _numberController = TextEditingController(text: widget.student.phoneNumber);
+    _imagePath = widget.student.image;
+    id = widget.student.id!;
+
+    super.initState();
+  }
+
+  //! get image method
   Future getImage() async {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -40,10 +65,37 @@ class _UpdateScreenState extends State<UpdateScreen> {
     });
   }
 
+  //! onsubmit functions
+
+  Future<void> onSubmit(BuildContext ctx) async {
+    print('one submitte pressed');
+    final name = _nameController.text.trim();
+    final emialID = _emailController.text.trim();
+    final subject = _subjectControler.text.trim();
+    final number = _numberController.text.trim();
+    final cgpa = _cgpaController.text.trim();
+
+    final student = Student(
+      image: _imagePath,
+      name: name,
+      emailID: emialID,
+      subject: subject,
+      cgpa: cgpa,
+      phoneNumber: number,
+      id: id,
+    );
+    final studentProvider = Provider.of<StudentProvider>(ctx, listen: false);
+    await studentProvider.updateStudent(student);
+
+    print('student updated');
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add Student Details"), centerTitle: true),
+      appBar: AppBar(title: Text("Update Student Details"), centerTitle: true),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -68,12 +120,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   image: DecorationImage(
-                                    image:
-                                        _imagePath != null &&
-                                            File(_imagePath!).existsSync()
-                                        ? FileImage(File(_imagePath!))
-                                        : const AssetImage("assets/female.jpg")
-                                              as ImageProvider,
+                                    image: FileImage(File(_imagePath)),
                                   ),
                                 ),
                               ),
@@ -98,7 +145,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.text,
-                          controller: _nameContorller,
+                          controller: _nameController,
                           decoration: const InputDecoration().copyWith(
                             hintText: 'Enter Stundent Name',
                           ),
@@ -109,7 +156,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.emailAddress,
-                          controller: _emalilController,
+                          controller: _emailController,
                           decoration: const InputDecoration().copyWith(
                             hintText: 'Enter Email Address',
                           ),
@@ -119,7 +166,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           keyboardType: TextInputType.text,
-                          controller: _subjectController,
+                          controller: _subjectControler,
                           decoration: const InputDecoration().copyWith(
                             hintText: 'Enter Subject',
                           ),
@@ -149,7 +196,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                         ),
                         SizedBox(height: 30),
 
-                        // WideTextButtonWidget(signInKey: _signInKey),
+                        WideTextButtonWidget(
+                          signInKey: _signInKey,
+                          onsubmit: onSubmit, // ✅ correct way to pass
+                        ),
                       ],
                     ),
                   ),
